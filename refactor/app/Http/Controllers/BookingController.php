@@ -172,6 +172,10 @@ class BookingController extends Controller
             );
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
     public function distanceFeed(Request $request)
     {
         $data = $request->all();
@@ -231,20 +235,28 @@ class BookingController extends Controller
         return response('Record updated!');
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function reopen(Request $request)
     {
-        $data = $request->all();
-        $response = $this->repository->reopen($data);
-
-        return response($response);
+        return response(
+                $this->repository->reopen($request->all())
+            );
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function resendNotifications(Request $request)
     {
-        $data = $request->all();
-        $job = $this->repository->find($data['jobid']);
-        $job_data = $this->repository->jobToData($job);
-        $this->repository->sendNotificationTranslator($job, $job_data, '*');
+        $this->repository->sendNotificationTranslator(
+                $this->repository->find($request['jobid']), 
+                $this->repository->jobToData($job),
+                '*'
+            );
 
         return response(['success' => 'Push sent']);
     }
@@ -256,12 +268,10 @@ class BookingController extends Controller
      */
     public function resendSMSNotifications(Request $request)
     {
-        $data = $request->all();
-        $job = $this->repository->find($data['jobid']);
-        $job_data = $this->repository->jobToData($job);
-
         try {
-            $this->repository->sendSMSNotificationToTranslator($job);
+            $this->repository->sendSMSNotificationToTranslator(
+                    $this->repository->find($request->get('jobid'))
+                );
             return response(['success' => 'SMS sent']);
         } catch (\Exception $e) {
             return response(['success' => $e->getMessage()]);

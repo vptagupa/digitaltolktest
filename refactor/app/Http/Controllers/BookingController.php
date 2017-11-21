@@ -193,19 +193,19 @@ class BookingController extends Controller
             $flagged = 'yes';
         }
 
-        if (isset($data['distance']) && $data['distance'] != "")  $distance = $data['distance'];
+        $distance = isset($data['distance']) && $data['distance'] != "")  ? $data['distance'] : '';
 
-        if (isset($data['time']) && $data['time'] != "")  $time = $data['time'];
+        $time = (isset($data['time']) && $data['time'] != "") ? $data['time'] : '';
 
-        if (isset($data['jobid']) && $data['jobid'] != "")  $jobid = $data['jobid'];
+        $jobid = (isset($data['jobid']) && $data['jobid'] != "")  ? $data['jobid'] : '';
 
-        if (isset($data['session_time']) && $data['session_time'] != "")  $session = $data['session_time'];
+        $session =  (isset($data['session_time']) && $data['session_time'] != "") ? $data['session_time'] : '';
 
-        if (isset($data['manually_handled']) && $data['manually_handled'] == 'true') $manually_handled = 'yes';
+        $manually_handled =(isset($data['manually_handled']) && $data['manually_handled'] == 'true') ? 'yes' : 'no';
 
-        if (isset($data['by_admin']) && $data['by_admin'] == 'true') $by_admin = 'yes';
+        $by_admin =  (isset($data['by_admin']) && $data['by_admin'] == 'true') ? 'yes' : 'no';
 
-        if (isset($data['admincomment']) && $data['admincomment'] != "") $admincomment = $data['admincomment'];
+        $admincomment = (isset($data['admincomment']) && $data['admincomment'] != "") ? $data['admincomment'] : '';
 
         if ($time || $distance) {
 

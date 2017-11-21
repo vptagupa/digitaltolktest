@@ -14,7 +14,7 @@ Trait Notification
      * @param $msg_text
      * @param $is_need_delay
      */
-    public static function sendPushNotificationToSpecificUsers($users, $job_id, $data, $msg_text, $is_need_delay)
+    public function sendPushNotificationToSpecificUsers($users, $job_id, $data, $msg_text, $is_need_delay)
     {
 
         $logger = new Logger('push_logger');

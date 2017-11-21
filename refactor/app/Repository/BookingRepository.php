@@ -1377,16 +1377,9 @@ class BookingRepository extends BaseRepository
                 $job->save();
                 $user = $job->user()->get()->first();
                 $mailer = new AppMailer();
-
-                if (!empty($job->user_email)) {
-                    $email = $job->user_email;
-                    $name = $user->name;
-                    $subject = 'Bekräftelse - tolk har accepterat er bokning (bokning # ' . $job->id . ')';
-                } else {
-                    $email = $user->email;
-                    $name = $user->name;
-                    $subject = 'Bekräftelse - tolk har accepterat er bokning (bokning # ' . $job->id . ')';
-                }
+                $name = $user->name;
+                $subject = 'Bekräftelse - tolk har accepterat er bokning (bokning # ' . $job->id . ')';
+                $email = (!empty($job->user_email)) ? $job->user_email : $user->email;
                 $data = [
                     'user' => $user,
                     'job'  => $job

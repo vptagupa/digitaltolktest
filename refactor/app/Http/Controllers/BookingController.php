@@ -193,33 +193,19 @@ class BookingController extends Controller
             $flagged = 'yes';
         }
 
-        if (isset($data['distance']) && $data['distance'] != "") {
-            $distance = $data['distance'];
-        } 
+        if (isset($data['distance']) && $data['distance'] != "")  $distance = $data['distance'];
 
-        if (isset($data['time']) && $data['time'] != "") {
-            $time = $data['time'];
-        } 
+        if (isset($data['time']) && $data['time'] != "")  $time = $data['time'];
 
-        if (isset($data['jobid']) && $data['jobid'] != "") {
-            $jobid = $data['jobid'];
-        }
+        if (isset($data['jobid']) && $data['jobid'] != "")  $jobid = $data['jobid'];
 
-        if (isset($data['session_time']) && $data['session_time'] != "") {
-            $session = $data['session_time'];
-        } 
+        if (isset($data['session_time']) && $data['session_time'] != "")  $session = $data['session_time'];
 
-        if ($data['manually_handled'] == 'true') {
-            $manually_handled = 'yes';
-        } 
+        if (isset($data['manually_handled']) && $data['manually_handled'] == 'true') $manually_handled = 'yes';
 
-        if ($data['by_admin'] == 'true') {
-            $by_admin = 'yes';
-        } 
+        if (isset($data['by_admin']) && $data['by_admin'] == 'true') $by_admin = 'yes';
 
-        if (isset($data['admincomment']) && $data['admincomment'] != "") {
-            $admincomment = $data['admincomment'];
-        } 
+        if (isset($data['admincomment']) && $data['admincomment'] != "") $admincomment = $data['admincomment'];
 
         if ($time || $distance) {
 
@@ -253,7 +239,7 @@ class BookingController extends Controller
     public function resendNotifications(Request $request)
     {
         $this->repository->sendNotificationTranslator(
-                $this->repository->find($request['jobid']), 
+                $this->repository->find($request->get('jobid')), 
                 $this->repository->jobToData($job),
                 '*'
             );

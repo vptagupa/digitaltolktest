@@ -180,14 +180,6 @@ class BookingController extends Controller
     {
         $data = $request->all();
 
-        $distance = ""; 
-        $time = ""; 
-        $session = ""; 
-        $admincomment = ""; 
-        $flagged = 'no';
-        $manually_handled = 'no'; 
-        $by_admin = 'no';
-
         if ($data['flagged'] == 'true') {
             if($data['admincomment'] == '') return "Please, add comment";
             $flagged = 'yes';
